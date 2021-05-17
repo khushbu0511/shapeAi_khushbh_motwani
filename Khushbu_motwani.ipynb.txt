@@ -1,0 +1,227 @@
+{
+  "nbformat": 4,
+  "nbformat_minor": 0,
+  "metadata": {
+    "colab": {
+      "name": "Khushbu_motwani.ipynb",
+      "provenance": [],
+      "collapsed_sections": []
+    },
+    "kernelspec": {
+      "name": "python3",
+      "display_name": "Python 3"
+    },
+    "language_info": {
+      "name": "python"
+    }
+  },
+  "cells": [
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "FVTQUzvKffzu"
+      },
+      "source": [
+        " from keras.datasets import mnist\n",
+        "data = mnist.load_data()"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "zCpXNvylqK01"
+      },
+      "source": [
+        "((X_train,y_train),(X_test,y_test))= data"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "k1wM8tJ3qpJW"
+      },
+      "source": [
+        " X_train = X_train.reshape ((X_train.shape[0],28*28)).astype('float32')\n",
+        " \n",
+        " X_test = X_test.reshape ((X_test.shape[0],28*28)).astype('float32')"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "paDeYB25q4bh"
+      },
+      "source": [
+        "X_train = X_train/255\n",
+        "X_test = X_test/255"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 370
+        },
+        "id": "gEKxD_BcrK1C",
+        "outputId": "d8f22cb9-596d-44df-b8e6-075f292e9d08"
+      },
+      "source": [
+        "from keras.utils import np_utils\n",
+        " \n",
+        "print(y_test.shape)\n",
+        " \n",
+        "y_train = np_utils.to_Cateogricaly(y_train)\n",
+        "y_test = np_utils.to_Cateogricaly(y_test)\n",
+        " \n",
+        "num_classes = y_test.shape[1]\n",
+        " \n",
+        "print(y_test.shape)"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "(10000,)\n"
+          ],
+          "name": "stdout"
+        },
+        {
+          "output_type": "error",
+          "ename": "AttributeError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mAttributeError\u001b[0m                            Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-135-2044bb01f518>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[1;32m      3\u001b[0m \u001b[0mprint\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0my_test\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mshape\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      4\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m----> 5\u001b[0;31m \u001b[0my_train\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mnp_utils\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mto_Cateogricaly\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0my_train\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m      6\u001b[0m \u001b[0my_test\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0mnp_utils\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mto_Cateogricaly\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0my_test\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m      7\u001b[0m \u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;31mAttributeError\u001b[0m: module 'keras.utils.np_utils' has no attribute 'to_Cateogricaly'"
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "ELZs7mOFzDki"
+      },
+      "source": [
+        "from keras.models import Sequential \n",
+        "from keras.layers import Dense"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "bIRnW7tCy-TS"
+      },
+      "source": [
+        "model=Sequential()\n",
+        "model.add(Dense(32,input_dim =28*28,activation='relu'))\n",
+        "model.add(Dense(64,activation ='relu'))\n",
+        "model.add(Dense(10,activation ='softmax'))"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "mpdu9OCQ3bpE"
+      },
+      "source": [
+        "model.compile(loss='cateogricaly_crossentropy',optimizer='adam',metrics=['accuracy'])"
+      ],
+      "execution_count": null,
+      "outputs": []
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/"
+        },
+        "id": "f1T0XYHZ4Gu0",
+        "outputId": "472dcf27-ef59-480f-c345-4c9865f10d5a"
+      },
+      "source": [
+        "model.summary()"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "stream",
+          "text": [
+            "Model: \"sequential_1\"\n",
+            "_________________________________________________________________\n",
+            "Layer (type)                 Output Shape              Param #   \n",
+            "=================================================================\n",
+            "dense_3 (Dense)              (None, 32)                25120     \n",
+            "_________________________________________________________________\n",
+            "dense_4 (Dense)              (None, 64)                2112      \n",
+            "_________________________________________________________________\n",
+            "dense_5 (Dense)              (None, 10)                650       \n",
+            "=================================================================\n",
+            "Total params: 27,882\n",
+            "Trainable params: 27,882\n",
+            "Non-trainable params: 0\n",
+            "_________________________________________________________________\n"
+          ],
+          "name": "stdout"
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "colab": {
+          "base_uri": "https://localhost:8080/",
+          "height": 552
+        },
+        "id": "2k3LTRpJ4M87",
+        "outputId": "cff6446c-954a-4a39-8fac-9cbafd1f09a4"
+      },
+      "source": [
+        "model.fit(X_train, y_train, epochs=10 , batch_size = 100)"
+      ],
+      "execution_count": null,
+      "outputs": [
+        {
+          "output_type": "error",
+          "ename": "RuntimeError",
+          "evalue": "ignored",
+          "traceback": [
+            "\u001b[0;31m---------------------------------------------------------------------------\u001b[0m",
+            "\u001b[0;31mRuntimeError\u001b[0m                              Traceback (most recent call last)",
+            "\u001b[0;32m<ipython-input-119-b15a4e131e44>\u001b[0m in \u001b[0;36m<module>\u001b[0;34m()\u001b[0m\n\u001b[0;32m----> 1\u001b[0;31m \u001b[0mmodel\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mfit\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0mX_train\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0my_train\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0mepochs\u001b[0m\u001b[0;34m=\u001b[0m\u001b[0;36m10\u001b[0m \u001b[0;34m,\u001b[0m \u001b[0mbatch_size\u001b[0m \u001b[0;34m=\u001b[0m \u001b[0;36m100\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/tensorflow/python/keras/engine/training.py\u001b[0m in \u001b[0;36mfit\u001b[0;34m(self, x, y, batch_size, epochs, verbose, callbacks, validation_split, validation_data, shuffle, class_weight, sample_weight, initial_epoch, steps_per_epoch, validation_steps, validation_batch_size, validation_freq, max_queue_size, workers, use_multiprocessing)\u001b[0m\n\u001b[1;32m   1030\u001b[0m     \u001b[0;31m# Legacy graph support is contained in `training_v1.Model`.\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1031\u001b[0m     \u001b[0mversion_utils\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0mdisallow_legacy_graph\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'Model'\u001b[0m\u001b[0;34m,\u001b[0m \u001b[0;34m'fit'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 1032\u001b[0;31m     \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_assert_compile_was_called\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0m\u001b[1;32m   1033\u001b[0m     \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_check_call_args\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'fit'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   1034\u001b[0m     \u001b[0m_disallow_inside_tf_function\u001b[0m\u001b[0;34m(\u001b[0m\u001b[0;34m'fit'\u001b[0m\u001b[0;34m)\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n",
+            "\u001b[0;32m/usr/local/lib/python3.7/dist-packages/tensorflow/python/keras/engine/training.py\u001b[0m in \u001b[0;36m_assert_compile_was_called\u001b[0;34m(self)\u001b[0m\n\u001b[1;32m   2590\u001b[0m     \u001b[0;31m# (i.e. whether the model is built and its inputs/outputs are set).\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2591\u001b[0m     \u001b[0;32mif\u001b[0m \u001b[0;32mnot\u001b[0m \u001b[0mself\u001b[0m\u001b[0;34m.\u001b[0m\u001b[0m_is_compiled\u001b[0m\u001b[0;34m:\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[0;32m-> 2592\u001b[0;31m       raise RuntimeError('You must compile your model before '\n\u001b[0m\u001b[1;32m   2593\u001b[0m                          \u001b[0;34m'training/testing. '\u001b[0m\u001b[0;34m\u001b[0m\u001b[0;34m\u001b[0m\u001b[0m\n\u001b[1;32m   2594\u001b[0m                          'Use `model.compile(optimizer, loss)`.')\n",
+            "\u001b[0;31mRuntimeError\u001b[0m: You must compile your model before training/testing. Use `model.compile(optimizer, loss)`."
+          ]
+        }
+      ]
+    },
+    {
+      "cell_type": "code",
+      "metadata": {
+        "id": "-PgVgoUB7a0I"
+      },
+      "source": [
+        "Scores = model.evaluate(x_test,y_test)\n",
+        "print(scores)"
+      ],
+      "execution_count": null,
+      "outputs": []
+    }
+  ]
+}
